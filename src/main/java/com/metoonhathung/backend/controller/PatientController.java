@@ -1,71 +1,49 @@
 package com.metoonhathung.backend.controller;
 
-import com.metoonhathung.backend.exception.ResourceNotFoundException;
 import com.metoonhathung.backend.model.Patient;
-import com.metoonhathung.backend.repository.PatientRepository;
+import com.metoonhathung.backend.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigInteger;
+import java.util.*;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class PatientController {
+
     @Autowired
-    private PatientRepository patientRepository;
+    private PatientService patientService;
 
-    //get all patients
-    @GetMapping("/patients")
-    public List<Patient> getAllPatients() {
-        return patientRepository.findAll();
+    @GetMapping("/get")
+    public ResponseEntity<List<Patient>> get(@RequestParam String condition, @RequestParam String range) {
+        return patientService.get(condition, range);
     }
 
-    //get patient by id
-    @GetMapping("/patients/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable(value = "id") Long patientId)
-            throws ResourceNotFoundException {
-        Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new ResourceNotFoundException("Patient not found for this id :: " + patientId));
-        return ResponseEntity.ok().body(patient);
+    @GetMapping("/count")
+    public ResponseEntity<BigInteger> count(@RequestParam String condition) {
+        return patientService.count(condition);
     }
 
-    //create patient
-    @PostMapping("/patients")
-    public Patient createPatient(@RequestBody Patient patient) {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        patient.setCreated(timestamp);
-        patient.setUpdated(timestamp);
-        return patientRepository.save(patient);
+    @GetMapping("/read")
+    public ResponseEntity<Patient> read(@RequestParam Long id) {
+        return patientService.read(id);
     }
 
-    //update patient
-    @PutMapping("/patients/{id}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable(value = "id") Long patientId, @RequestBody Patient patientDetails) throws ResourceNotFoundException {
-        Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new ResourceNotFoundException("Patient not found for this id :: " + patientId));
-        patient.setName(patientDetails.getName());
-        patient.setGender(patientDetails.getGender());
-        patient.setAge(patientDetails.getAge());
-        patient.setEmail(patientDetails.getEmail());
-        patient.setPhone(patientDetails.getPhone());
-        patient.setUpdated(new Timestamp(System.currentTimeMillis()));
-        return ResponseEntity.ok(patientRepository.save(patient));
+    @PostMapping("/create")
+    public ResponseEntity<Patient> create(@RequestBody Patient patient) {
+        return patientService.create(patient);
     }
 
-    //delete patient
-    @DeleteMapping("/patients/{id}")
-    public Map<String, Boolean> deletePatient(@PathVariable(value = "id") Long patientId)
-            throws ResourceNotFoundException {
-        Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new ResourceNotFoundException("Patient not found for this id :: " + patientId));
-        patientRepository.delete(patient);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+    @PutMapping("/update")
+    public ResponseEntity<Patient> update(@RequestParam Long id, @RequestBody Patient updatedPatient) {
+        return patientService.update(id, updatedPatient);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, Boolean>> delete(@RequestParam Long id) {
+        return patientService.delete(id);
     }
 }
