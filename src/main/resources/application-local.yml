@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/patientdb?currentSchema=dev
+    username: postgres
+    password: postgres
+  flyway:
+    url: jdbc:postgresql://localhost:5432/patientdb
+    schemas: dev
+    user: postgres
+    password: postgres

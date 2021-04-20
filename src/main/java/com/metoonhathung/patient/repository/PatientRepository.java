@@ -1,6 +1,6 @@
-package com.metoonhathung.backend.repository;
+package com.metoonhathung.patient.repository;
 
-import com.metoonhathung.backend.model.Patient;
+import com.metoonhathung.patient.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

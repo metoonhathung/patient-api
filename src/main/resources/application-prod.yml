@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/dag92dltnvjjti
+    username: lqqraqhfdowxex
+    password: 8e6421eab9eb87cf18ad56b7c3143bb78750b54725558b6282ad1af73a0d0808
+  flyway:
+    url: jdbc:postgresql://ec2-34-193-101-0.compute-1.amazonaws.com:5432/dag92dltnvjjti
+    schemas: public
+    user: lqqraqhfdowxex
+    password: 8e6421eab9eb87cf18ad56b7c3143bb78750b54725558b6282ad1af73a0d0808
