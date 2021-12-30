@@ -1,9 +1,9 @@
 # Patients Manager
 
-Frontend: [Source Code](https://github.com/metoonhathung/patient-web) - [Live Demo](https://patient-web.pages.dev)
+Source Code: [Frontend](https://github.com/metoonhathung/patient-web), [Backend](https://github.com/metoonhathung/patient-service)
 
-Backend: [Source Code](https://github.com/metoonhathung/patient-service) - [Live Demo](https://metoonhathung-patient-service.herokuapp.com/patients)
+[Demo](https://patient-web.pages.dev/)
 
-Description: A fullstack web application to manage patients.
+Description: A web application to manage records of patients.
 
-Technologies: Spring Boot, PostgreSQL, React, Redux, Typescript, Material UI
+Technologies: Spring Boot, PostgreSQL, React, Redux, TypeScript, Material UI
